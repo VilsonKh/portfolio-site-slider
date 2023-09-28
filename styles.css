@@ -1,0 +1,24 @@
+.swiper {
+  width: 100vw;
+  height: 100vh;
+  background: grey
+}
+
+.slider-image {
+  width:  100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.navigation {
+  width: 40vw;
+  height: 100vh;
+  background: orange;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: .5;
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+  
+}
