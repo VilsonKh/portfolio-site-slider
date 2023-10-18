@@ -1,7 +1,14 @@
-.swiper {
+body {
   width: 100vw;
   height: 100vh;
-  background: grey
+  overflow: hidden;
+}
+
+body + .swiper {
+  width: 100vw;
+  height: 100vh;
+  background: grey;
+
 }
 
 .slider-image {
@@ -10,15 +17,98 @@
   object-fit: cover;
 }
 
+
+
 .navigation {
-  width: 40vw;
-  height: 100vh;
-  background: orange;
+  width: 50vw;
+  height: 150vh;
+  background: #1d1d1d;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
-  opacity: .5;
-  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
-  
+  opacity: .95;
+  top: -20%;
+  left: -20%;
+  transform: rotate(-20deg);
+  transition: all .3s linear;
+  z-index: 2;
+  display: flex;
+  box-sizing: content-box;
+}
+
+.orange-line {
+  width: 100px;
+  height: 150vh;
+  background: #E75D03F2;
+  position: relative;
+  left: 100%;
+}
+
+.description {
+  color: white;
+  font-size: 24px;
+  width: 80%;
+}
+
+.info {
+  width: 100vw; 
+  height: 20%;
+  background-color: #1d1d1d;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  opacity: .95;
+  transition: all .3s linear;
+  z-index: 1;
+  padding-right: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  box-sizing: border-box;
+}
+
+.info__container {
+  width: 50%;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.thumbsSlider {
+  position: relative;
+  top: 47%;
+  transform: translateY(-50%) rotate(20deg);
+  width: 60%;
+  margin-right: 0;
+  height: 80vh;
+}
+
+.thumbsSlider .swiper-wrapper {
+  align-items: center;
+}
+
+.thumbsSlider .swiper-slide {
+  transition: all .3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 380px;
+}
+
+.thumbsSlider .swiper-slide img{ 
+  width: 100%;
+}
+
+.thumbsSlider .swiper-slide-active {
+  transform: scale(1.3);
+
 }
