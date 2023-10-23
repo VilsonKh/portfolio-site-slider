@@ -101,9 +101,16 @@ const mobileMainSlider = new Swiper(".mainSlider", {
 	// allowSlideNext: false,
 	// allowSlidePrev: false,
 	loop: true,
+	allowTouchMove: false,
 	navigation: {
 		prevEl: ".swiper-button-prev",
 		nextEl: ".swiper-button-next",
+	},
+	on: {
+		slideChange: function () {
+			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
+			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
+		},
 	},
 });
 
