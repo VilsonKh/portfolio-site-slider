@@ -102,6 +102,7 @@ const mobileMainSlider = new Swiper(".mainSlider", {
 	// allowSlidePrev: false,
 	loop: true,
 	allowTouchMove: false,
+	edgeSwipeDetection: false,
 	navigation: {
 		prevEl: ".swiper-button-prev",
 		nextEl: ".swiper-button-next",
