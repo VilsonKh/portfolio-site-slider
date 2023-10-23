@@ -2,6 +2,8 @@ body {
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
+	background: #1d1d1d;
+	font-family: "Jura";
 }
 
 body + .swiper {
@@ -49,6 +51,8 @@ body + .swiper {
 	color: white;
 	font-size: 24px;
 	width: 80%;
+	text-align: justify;
+
 }
 
 .info {
@@ -272,7 +276,8 @@ body + .swiper {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate(-50%, -50%)
+		transform: translate(-50%, -50%);
+		font-size: 16px;
 	}
 
 
