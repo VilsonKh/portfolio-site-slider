@@ -92,6 +92,10 @@ body + .swiper {
 	width: 50px;
 }
 
+.buttons button {
+	display: none;
+}
+
 .thumbsSlider {
 	position: relative;
 	top: 50%;
@@ -270,6 +274,10 @@ body + .swiper {
 		width: 70px;
 		display: flex;
 		align-items: center;
+	}
+
+	.buttons button {
+		display: block;
 	}
 
 	.description {
