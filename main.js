@@ -83,7 +83,7 @@ const mainSlider = new Swiper(".mainSlider", {
 	watchSlidesProgress: true,
 	loop: false,
 	pagination: {
-		el: ".swiper-pagination",
+		// el: ".swiper-pagination",
 		clickable: true,
 		// renderBullet: function (index, className) {
 		// 	return '<span class="' + className + '">' + "</span>";
@@ -97,15 +97,33 @@ const mainSlider = new Swiper(".mainSlider", {
 	},
 });
 
+const mobileMainSlider = new Swiper(".mainSlider", {
+	// allowSlideNext: false,
+	// allowSlidePrev: false,
+	loop: true,
+	navigation: {
+		prevEl: ".swiper-button-prev",
+		nextEl: ".swiper-button-next",
+	},
+});
+
+if (window.screen.width < 768) {
+	mainSlider.enabled = false;
+	mobileMainSlider.enabled = true;
+} else {
+	mainSlider.enabled = true;
+	mobileMainSlider.enabled = false;
+}
+
 const thumbsSlider = new Swiper(".thumbsSlider", {
 	direction: "vertical",
 	slidesPerView: 3,
 	centeredSlides: true,
 	loop: false,
-	navigation: {
-		prevEl: ".swiper-button-prev",
-		nextEl: ".swiper-button-next",
-	},
+	// navigation: {
+	// 	prevEl: ".swiper-button-prev",
+	// 	nextEl: ".swiper-button-next",
+	// },
 	on: {
 		slideChangeTransitionStart: function () {
 			setBeforePrevAfterNext(this);
@@ -115,6 +133,10 @@ const thumbsSlider = new Swiper(".thumbsSlider", {
 
 const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
 	direction: "vertical",
+	pagination: {
+		el: ".swiper-pagination",
+		clickable: true,
+	},
 });
 
 mainSlider.controller.control = thumbsSlider;
@@ -197,5 +219,21 @@ panelToggler.addEventListener("click", () => {
 		panelTogglerImg.setAttribute("src", hidePanelImg);
 	} else {
 		panelTogglerImg.setAttribute("src", showPanelImg);
+	}
+});
+
+const mobilePanelToggler = document.querySelector(".mobileNavigationToggler");
+const mobilePanelTogglerImg = mobilePanelToggler.querySelector("img");
+const showMobilePanel = "./media/show_mobileSidebar.svg";
+const hideMobilePanel = "./media/hide_mobileSidebar.svg";
+
+console.log(mobilePanelTogglerImg);
+
+mobilePanelToggler.addEventListener("click", () => {
+	info.classList.toggle("hide");
+	if (mobilePanelTogglerImg.src.indexOf("show") != -1) {
+		mobilePanelTogglerImg.setAttribute("src", hideMobilePanel);
+	} else {
+		mobilePanelTogglerImg.setAttribute("src", showMobilePanel);
 	}
 });
