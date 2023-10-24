@@ -1,5 +1,7 @@
 const projectDescription = document.querySelector(".description");
 const githubLink = document.querySelector(".githubLink");
+const mobileLayoutButton = document.querySelector(".layout__mobile");
+const desktopLayoutButton = document.querySelector(".layout__desktop");
 
 const projectsDescriptionData = [
 	{
@@ -35,6 +37,8 @@ const projectsDescriptionData = [
 			"The website offers information, highlighting the studio's portfolio, services, and expertise. It features a captivating collection of photographs, demonstrating the studio's artistic vision and technical skill. The website also includes detailed information about the studio's services, such as portrait, group or family fotography.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/photo-studio",
+		desktopLayout: "./media/photo-studio-min.webp",
+		mobileLayout: "./media/photo-studio__mobile-min.webp",
 	},
 	{
 		title: "mesto",
@@ -42,12 +46,16 @@ const projectsDescriptionData = [
 			"The website allows users to add, delete, and like images, as well as edit their profile and change avatar. The user's photos are stored in a Firestore database. Also it includes form validation to ensure user input is correct and checks for the presence of images at the specified user-provided addresses.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/mesto",
+		desktopLayout: "./media/mesto-min.webp",
+		mobileLayout: "./media/mesto__mobile-min.webp",
 	},
 	{
 		title: "planet-facts",
 		description: "Planets Facts project dedicated to fascinating facts about the planets of our solar system. Here, you can discover captivating details about each planet, their unique features.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/planet-facts",
+		desktopLayout: "./media/planets-fact-min.webp",
+		mobileLayout: "./media/planet-facts__mobile-min.webp",
 	},
 	{
 		title: "russian-travel",
@@ -55,6 +63,8 @@ const projectsDescriptionData = [
 			"The website offers a wide range of features and resources to enhance your travel experience in Russia. It provides users with access to comprehensive and well-researched textual articles that cover various aspects of Russian travel, such as popular destinations, historical landmarks, cultural experiences, and outdoor adventures.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/russian-travel",
+		desktopLayout: "./media/russian-travel-min.webp",
+		mobileLayout: "./media/russian-travel__mobile-min.webp",
 	},
 	{
 		title: "theater",
@@ -62,12 +72,16 @@ const projectsDescriptionData = [
 			"The website offers visitors an opportunity to explore the theater's diverse productions.	The website features a captivating slider showcasing images from past performances, providing visitors with a glimpse into the visually stunning and emotive world of theater. Furthermore, the website offers a convenient callback form allowing visitors to easily get in touch with the theater.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/theatre",
+		desktopLayout: "./media/theater-min.webp",
+		mobileLayout: "./media/theater__mobile-min.webp",
 	},
 	{
 		title: "singer-landing",
 		description: "This website allows visitors to explore the singer's discography, biography, upcoming events, and latest news. Also video and music were implemented.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/singer-landing",
+		desktopLayout: "./media/singer-landing-min.webp",
+		mobileLayout: "none",
 	},
 	{
 		title: "tribe",
@@ -75,6 +89,8 @@ const projectsDescriptionData = [
 			"The website provides information about the agency's services, musicians, and upcoming events. It uses animations and sliders to create an engaging experience.	The sliders display musician profiles and past performances. The website is responsive, ensuring a seamless experience across devices.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/tribe",
+		desktopLayout: "./media/tribe-min.webp",
+		mobileLayout: "none",
 	},
 	{
 		title: "how-to-learn",
@@ -82,6 +98,8 @@ const projectsDescriptionData = [
 			"The project provides users with access to various types of information aimed at enhancing learning effectiveness, including textual articles, infographics, video materials, and links to useful resources.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/how-to-learn",
+		desktopLayout: "./media/how-to-learn-min.webp",
+		mobileLayout: "none",
 	},
 ];
 
@@ -106,7 +124,7 @@ const mainSlider = new Swiper(".mainSlider", {
 const mobileMainSlider = new Swiper(".mainSlider", {
 	// allowSlideNext: false,
 	// allowSlidePrev: false,
-	loop: true,
+	// loop: true,
 	allowTouchMove: false,
 	edgeSwipeDetection: false,
 	navigation: {
@@ -117,6 +135,13 @@ const mobileMainSlider = new Swiper(".mainSlider", {
 		slideChange: function () {
 			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
+
+			if (projectsDescriptionData[this.realIndex].mobileLayout === "none") {
+				mobileLayoutButton.classList.add("hide");
+				desktopLayoutButton.classList.add("active");
+			} else {
+				mobileLayoutButton.classList.remove("hide");
+			}
 		},
 	},
 });
@@ -250,7 +275,6 @@ mobilePanelToggler.addEventListener("click", () => {
 });
 
 const layoutTogglerButtons = document.querySelector(".layoutTogglerButtons");
-const mobileLayoutButton = document.querySelector(".layout__mobile");
 
 layoutTogglerButtons.addEventListener("click", (e) => {
 	layoutTogglerButtons.querySelectorAll("button").forEach((elem) => {
@@ -258,12 +282,21 @@ layoutTogglerButtons.addEventListener("click", (e) => {
 	});
 
 	e.target.parentNode.classList.add("active");
-	const slides = document.querySelectorAll(".mainSlider .swiper-slide");
-	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
-		console.log(mobileMainSlider.realIndex + 1);
 
-		slides[mobileMainSlider.realIndex].children[0].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].mobileLayout);
+	const slides = document.querySelectorAll(".mainSlider .swiper-slide img");
+	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
+		// slides[mobileMainSlider.realIndex].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].mobileLayout);
+		slides.forEach((slide, index) => {
+			if (projectsDescriptionData[index].mobileLayout === "none") {
+				return;
+			} else {
+				slide.setAttribute("src", projectsDescriptionData[index].mobileLayout);
+			}
+		});
 	} else {
-		slides[mobileMainSlider.realIndex].children[0].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].desktopLayout);
+		// slides[mobileMainSlider.realIndex].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].desktopLayout);
+		slides.forEach((slide, index) => {
+			slide.setAttribute("src", projectsDescriptionData[index].desktopLayout);
+		});
 	}
 });

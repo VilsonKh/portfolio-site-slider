@@ -250,7 +250,7 @@ body + .swiper {
 	.mainSlider img {
 		width: auto;
 		height: auto;
-		max-width:max-content;
+		max-width: max-content;
 	}
 
 	.mobileNavigationToggler {
@@ -325,6 +325,11 @@ body + .swiper {
 	.mainSlider__navigationControl  .swiper-button-next,
 	.mainSlider__navigationControl  .swiper-button-prev {
 		margin-top: 0;
+	}
+
+	.layout__mobile.hide {
+		opacity: 0;
+		visibility: hidden;
 	}
 
 }
