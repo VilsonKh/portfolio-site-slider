@@ -171,7 +171,7 @@ body + .swiper {
 	font-size: 24px;
 	color: #000;
 	opacity: 1;
-	background: rgba(0, 0, 0, 0.2);
+	background: #2f2f2f;
 	border-radius: 0;
 }
 
@@ -214,6 +214,10 @@ body + .swiper {
 
 	.info.hide {
 		transform: translateY(50%);
+	}
+
+	.layoutTogglerButtons {
+		display: none;
 	}
 }
 
@@ -288,5 +292,39 @@ body + .swiper {
 		font-size: 16px;
 	}
 
+	.layoutTogglerButtons {
+		display: flex;
+		position: absolute;
+		top: 5%;
+		left: 5%;
+		z-index: 1;
+		width: 140px;
+		justify-content: space-between;
+
+	}
+
+	.layoutTogglerButtons button {
+		opacity: .5;
+	}
+
+	.layoutTogglerButtons button.active {
+		opacity: 1;
+	}
+
+	.layoutTogglerButtons img {
+		width: 60px;
+	}
+
+	.mainSlider__navigationControl {
+		position: relative;
+		width: 160px;
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+
+	.mainSlider__navigationControl  .swiper-button-next,
+	.mainSlider__navigationControl  .swiper-button-prev {
+		margin-top: 0;
+	}
 
 }

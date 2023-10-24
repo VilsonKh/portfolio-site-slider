@@ -8,6 +8,8 @@ const projectsDescriptionData = [
 			"Entertainment App is a React-based project that serves as a convenient application for browsing and tracking movies and TV shows. The app features a content library that allows users to discover their favorite films and series, add bookmarks, and navigate between different tabs and content cards.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/entertainment-app",
+		desktopLayout: "./media/entertainment-app-min.webp",
+		mobileLayout: "./media/entertainment-app__mobile-min.webp",
 	},
 	{
 		title: "invoice-app",
@@ -15,6 +17,8 @@ const projectsDescriptionData = [
 			"The Invoice App simplifies the process of creating invoices through a user-friendly form. Users can input necessary details, such as client information, itemized charges, and due dates. The app employs the React Hook Form library for form validation, ensuring that all information entered is accurate and complete. If an invoice becomes irrelevant or is no longer needed, the app offers a deletion process. The app covered with tests.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/invoice-app",
+		desktopLayout: "./media/invoices-app-min.webp",
+		mobileLayout: "./media/invoice-app__mobile-min.webp",
 	},
 	{
 		title: "audiophile",
@@ -22,6 +26,8 @@ const projectsDescriptionData = [
 			"The Audiophile project features user-friendly checkouts form with validation. Users have the convenience of adding products to their shopping cart as they browse. The website is responsive, and the shopping cart persists across pages using localStorage. An integrated order form simplifies order creation.",
 		mainLink: "",
 		githubLink: "https://github.com/VilsonKh/audiophile",
+		desktopLayout: "./media/audiophile-min.webp",
+		mobileLayout: "./media/audiophile__mobile-min.webp",
 	},
 	{
 		title: "photo-studio",
@@ -153,7 +159,6 @@ thumbsSlider.controller.control = mainSlider;
 function setBeforePrevAfterNext($swiper) {
 	const totalSlidesNumber = document.querySelectorAll(".mainSlider .swiper-slide").length;
 	const currentSlideIndex = $swiper.realIndex + 1;
-	console.log(currentSlideIndex + "/" + totalSlidesNumber);
 
 	if (currentSlideIndex === 1) {
 		let next = $swiper.el.querySelector(".swiper-slide-next");
@@ -235,13 +240,30 @@ const mobilePanelTogglerImg = mobilePanelToggler.querySelector("img");
 const showMobilePanel = "./media/show_mobileSidebar.svg";
 const hideMobilePanel = "./media/hide_mobileSidebar.svg";
 
-console.log(mobilePanelTogglerImg);
-
 mobilePanelToggler.addEventListener("click", () => {
 	info.classList.toggle("hide");
 	if (mobilePanelTogglerImg.src.indexOf("show") != -1) {
 		mobilePanelTogglerImg.setAttribute("src", hideMobilePanel);
 	} else {
 		mobilePanelTogglerImg.setAttribute("src", showMobilePanel);
+	}
+});
+
+const layoutTogglerButtons = document.querySelector(".layoutTogglerButtons");
+const mobileLayoutButton = document.querySelector(".layout__mobile");
+
+layoutTogglerButtons.addEventListener("click", (e) => {
+	layoutTogglerButtons.querySelectorAll("button").forEach((elem) => {
+		elem.classList.remove("active");
+	});
+
+	e.target.parentNode.classList.add("active");
+	const slides = document.querySelectorAll(".mainSlider .swiper-slide");
+	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
+		console.log(mobileMainSlider.realIndex + 1);
+
+		slides[mobileMainSlider.realIndex].children[0].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].mobileLayout);
+	} else {
+		slides[mobileMainSlider.realIndex].children[0].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].desktopLayout);
 	}
 });
