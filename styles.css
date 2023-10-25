@@ -253,6 +253,11 @@ body + .swiper {
 		max-width: max-content;
 	}
 
+	.mainSlider img.mobile {
+		width: 100%;
+		max-width: none;
+	}
+
 	.mobileNavigationToggler {
 		width: 50px;
 		position: absolute;

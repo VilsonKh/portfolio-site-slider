@@ -142,6 +142,7 @@ const mobileMainSlider = new Swiper(".mainSlider", {
 			} else {
 				mobileLayoutButton.classList.remove("hide");
 			}
+			window.scrollTo(1000, 0);
 		},
 	},
 });
@@ -285,18 +286,18 @@ layoutTogglerButtons.addEventListener("click", (e) => {
 
 	const slides = document.querySelectorAll(".mainSlider .swiper-slide img");
 	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
-		// slides[mobileMainSlider.realIndex].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].mobileLayout);
 		slides.forEach((slide, index) => {
 			if (projectsDescriptionData[index].mobileLayout === "none") {
 				return;
 			} else {
 				slide.setAttribute("src", projectsDescriptionData[index].mobileLayout);
+				slide.classList.add("mobile");
 			}
 		});
 	} else {
-		// slides[mobileMainSlider.realIndex].setAttribute("src", projectsDescriptionData[mobileMainSlider.realIndex].desktopLayout);
 		slides.forEach((slide, index) => {
 			slide.setAttribute("src", projectsDescriptionData[index].desktopLayout);
+			slide.classList.remove("mobile");
 		});
 	}
 });
