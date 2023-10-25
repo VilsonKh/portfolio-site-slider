@@ -219,6 +219,10 @@ body + .swiper {
 	.layoutTogglerButtons {
 		display: none;
 	}
+
+	.mobileHeader{ 
+		display: none;
+	}
 }
 
 @media screen and (max-width: 768px) {
@@ -260,9 +264,7 @@ body + .swiper {
 
 	.mobileNavigationToggler {
 		width: 50px;
-		position: absolute;
-		top: 5%;
-		right: 5%;
+
 		z-index: 1;
 	}
 
@@ -271,16 +273,11 @@ body + .swiper {
 	}
 
 	.buttons {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 40%;
-
+		width: 35%;
 	}
 
 	.buttons img {
-		width: 70px;
+		width: 60px;
 		display: flex;
 		align-items: center;
 	}
@@ -299,9 +296,6 @@ body + .swiper {
 
 	.layoutTogglerButtons {
 		display: flex;
-		position: absolute;
-		top: 5%;
-		left: 5%;
 		z-index: 1;
 		width: 140px;
 		justify-content: space-between;
@@ -335,6 +329,22 @@ body + .swiper {
 	.layout__mobile.hide {
 		opacity: 0;
 		visibility: hidden;
+	}
+
+	.mobileHeader {
+		display: block;
+		background: #1d1d1d95;
+		top: 0;
+		z-index: 2;
+		width: 100vw;
+		display: flex;
+		justify-content: space-between;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+
+	.swiper-button-next::after, .swiper-button-prev::after {
+		font-size: 80px;
 	}
 
 }

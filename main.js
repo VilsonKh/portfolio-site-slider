@@ -103,6 +103,16 @@ const projectsDescriptionData = [
 	},
 ];
 
+const currentLayout = {
+	layout: "desktop",
+	get getLayout() {
+		return this.layout;
+	},
+	set setLayout(inputName) {
+		this.layout = inputName;
+	},
+};
+
 const mainSlider = new Swiper(".mainSlider", {
 	watchSlidesProgress: true,
 	loop: false,
@@ -141,6 +151,9 @@ const mobileMainSlider = new Swiper(".mainSlider", {
 				desktopLayoutButton.classList.add("active");
 			} else {
 				mobileLayoutButton.classList.remove("hide");
+				if (currentLayout.getLayout === "mobile") {
+					desktopLayoutButton.classList.remove("active");
+				}
 			}
 			window.scrollTo(1000, 0);
 		},
@@ -173,6 +186,7 @@ const thumbsSlider = new Swiper(".thumbsSlider", {
 
 const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
 	direction: "vertical",
+	autoHeight: true,
 	pagination: {
 		el: ".swiper-pagination",
 		clickable: true,
@@ -286,6 +300,7 @@ layoutTogglerButtons.addEventListener("click", (e) => {
 
 	const slides = document.querySelectorAll(".mainSlider .swiper-slide img");
 	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
+		currentLayout.setLayout = "mobile";
 		slides.forEach((slide, index) => {
 			if (projectsDescriptionData[index].mobileLayout === "none") {
 				return;
@@ -295,6 +310,7 @@ layoutTogglerButtons.addEventListener("click", (e) => {
 			}
 		});
 	} else {
+		currentLayout.setLayout = "desktop";
 		slides.forEach((slide, index) => {
 			slide.setAttribute("src", projectsDescriptionData[index].desktopLayout);
 			slide.classList.remove("mobile");
