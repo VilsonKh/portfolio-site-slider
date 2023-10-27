@@ -103,16 +103,6 @@ const projectsDescriptionData = [
 	},
 ];
 
-const currentLayout = {
-	layout: "desktop",
-	get getLayout() {
-		return this.layout;
-	},
-	set setLayout(inputName) {
-		this.layout = inputName;
-	},
-};
-
 const mainSlider = new Swiper(".mainSlider", {
 	watchSlidesProgress: true,
 	loop: false,
@@ -128,45 +118,59 @@ const mainSlider = new Swiper(".mainSlider", {
 			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
 		},
-	},
-});
-
-const mobileMainSlider = new Swiper(".mainSlider", {
-	// allowSlideNext: false,
-	// allowSlidePrev: false,
-	// loop: true,
-	allowTouchMove: false,
-	edgeSwipeDetection: false,
-	navigation: {
-		prevEl: ".swiper-button-prev",
-		nextEl: ".swiper-button-next",
-	},
-	on: {
-		slideChange: function () {
-			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
-			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
-
-			if (projectsDescriptionData[this.realIndex].mobileLayout === "none") {
-				mobileLayoutButton.classList.add("hide");
-				desktopLayoutButton.classList.add("active");
-			} else {
-				mobileLayoutButton.classList.remove("hide");
-				if (currentLayout.getLayout === "mobile") {
-					desktopLayoutButton.classList.remove("active");
-				}
-			}
-			window.scrollTo(1000, 0);
+		slideChangeTransitionStart: function () {
+			setBeforePrevAfterNext(thumbsSlider);
 		},
 	},
 });
 
-if (window.screen.width < 768) {
-	mainSlider.enabled = false;
-	mobileMainSlider.enabled = true;
-} else {
-	mainSlider.enabled = true;
-	mobileMainSlider.enabled = false;
-}
+// const mobileMainSlider = new Swiper(".mainSlider", {
+// 	// allowSlideNext: false,
+// 	// allowSlidePrev: false,
+// 	// loop: true,
+// 	allowTouchMove: false,
+// 	edgeSwipeDetection: false,
+// 	navigation: {
+// 		prevEl: ".swiper-button-prev",
+// 		nextEl: ".swiper-button-next",
+// 	},
+// 	on: {
+// 		slideChange: function () {
+// 			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
+// 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
+
+// 			if (projectsDescriptionData[this.realIndex].mobileLayout === "none") {
+// 				mobileLayoutButton.classList.add("hide");
+// 				desktopLayoutButton.classList.add("active");
+// 			} else {
+// 				mobileLayoutButton.classList.remove("hide");
+// 				if (currentLayout.getLayout === "mobile") {
+// 					desktopLayoutButton.classList.remove("active");
+// 				}
+// 			}
+// 			window.scrollTo(1000, 0);
+// 		},
+// 	},
+// });
+
+// if (window.screen.width < 768) {
+// 	mainSlider.enabled = false;
+// 	mobileMainSlider.enabled = true;
+// } else {
+// 	mainSlider.enabled = true;
+// 	mobileMainSlider.enabled = false;
+// }
+
+const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
+	slidesPerView: 3,
+	spaceBetween: 40,
+	centeredSlides: true,
+	on: {
+		slideChangeTransitionStart: function () {
+			setBeforePrevAfterNext(this);
+		},
+	},
+});
 
 const thumbsSlider = new Swiper(".thumbsSlider", {
 	direction: "vertical",
@@ -183,37 +187,28 @@ const thumbsSlider = new Swiper(".thumbsSlider", {
 		},
 	},
 });
-
-const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
-	direction: "vertical",
-	autoHeight: true,
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
-	},
-});
-
-mainSlider.controller.control = thumbsSlider;
+(mainSlider.controller.control = thumbsSlider), mobileThumbsSlider;
 thumbsSlider.controller.control = mainSlider;
+mobileThumbsSlider.controller.control = mainSlider;
 
-function setBeforePrevAfterNext($swiper) {
+function setBeforePrevAfterNext(swiper) {
+	console.log(swiper);
 	const totalSlidesNumber = document.querySelectorAll(".mainSlider .swiper-slide").length;
-	const currentSlideIndex = $swiper.realIndex + 1;
+	const currentSlideIndex = swiper.realIndex + 1;
 
 	if (currentSlideIndex === 1) {
-		let next = $swiper.el.querySelector(".swiper-slide-next");
+		let next = swiper.el.querySelector(".swiper-slide-next");
 
-		$swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
+		swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
 			element.classList.remove("swiper-slide-after-next");
-
 			if (next.nextElementSibling) {
 				next.nextElementSibling.classList.add("swiper-slide-after-next");
 			}
 		});
 	} else if (currentSlideIndex === totalSlidesNumber) {
-		let prev = $swiper.el.querySelector(".swiper-slide-prev");
+		let prev = swiper.el.querySelector(".swiper-slide-prev");
 
-		$swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
+		swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
 			element.classList.remove("swiper-slide-before-prev");
 
 			if (prev.previousElementSibling) {
@@ -221,13 +216,13 @@ function setBeforePrevAfterNext($swiper) {
 			}
 		});
 	} else {
-		let prev = $swiper.el.querySelector(".swiper-slide-prev");
-		let next = $swiper.el.querySelector(".swiper-slide-next");
+		let prev = swiper.el.querySelector(".swiper-slide-prev");
+		let next = swiper.el.querySelector(".swiper-slide-next");
 
-		$swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
+		swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
 			element.classList.remove("swiper-slide-before-prev");
 		});
-		$swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
+		swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
 			element.classList.remove("swiper-slide-after-next");
 		});
 
@@ -239,26 +234,23 @@ function setBeforePrevAfterNext($swiper) {
 			next.nextElementSibling.classList.add("swiper-slide-after-next");
 		}
 	}
-
-	// let before_prev = prev.previousElementSibling;
-	// let after_next = next.nextElementSibling;
 }
 
 const sliderImage = document.querySelectorAll(".mainSlider .swiper-slide");
 const navigation = document.querySelector(".navigation");
 const info = document.querySelector(".info");
 
-sliderImage.forEach((image) => {
-	image.addEventListener("mouseover", () => {
-		navigation.classList.add("hide");
-		info.classList.add("hide");
-	});
+// sliderImage.forEach((image) => {
+// 	image.addEventListener("mouseover", () => {
+// 		navigation.classList.add("hide");
+// 		info.classList.add("hide");
+// 	});
 
-	image.addEventListener("mouseout", () => {
-		navigation.classList.remove("hide");
-		info.classList.remove("hide");
-	});
-});
+// 	image.addEventListener("mouseout", () => {
+// 		navigation.classList.remove("hide");
+// 		info.classList.remove("hide");
+// 	});
+// });
 
 const panelToggler = document.querySelector(".navigationPanelToggler");
 const panelTogglerImg = panelToggler.querySelector("img");
@@ -272,48 +264,5 @@ panelToggler.addEventListener("click", () => {
 		panelTogglerImg.setAttribute("src", hidePanelImg);
 	} else {
 		panelTogglerImg.setAttribute("src", showPanelImg);
-	}
-});
-
-const mobilePanelToggler = document.querySelector(".mobileNavigationToggler");
-const mobilePanelTogglerImg = mobilePanelToggler.querySelector("img");
-const showMobilePanel = "./media/show_mobileSidebar.svg";
-const hideMobilePanel = "./media/hide_mobileSidebar.svg";
-
-mobilePanelToggler.addEventListener("click", () => {
-	info.classList.toggle("hide");
-	if (mobilePanelTogglerImg.src.indexOf("show") != -1) {
-		mobilePanelTogglerImg.setAttribute("src", hideMobilePanel);
-	} else {
-		mobilePanelTogglerImg.setAttribute("src", showMobilePanel);
-	}
-});
-
-const layoutTogglerButtons = document.querySelector(".layoutTogglerButtons");
-
-layoutTogglerButtons.addEventListener("click", (e) => {
-	layoutTogglerButtons.querySelectorAll("button").forEach((elem) => {
-		elem.classList.remove("active");
-	});
-
-	e.target.parentNode.classList.add("active");
-
-	const slides = document.querySelectorAll(".mainSlider .swiper-slide img");
-	if (e.target.parentNode.classList[0].indexOf("mobile") != -1) {
-		currentLayout.setLayout = "mobile";
-		slides.forEach((slide, index) => {
-			if (projectsDescriptionData[index].mobileLayout === "none") {
-				return;
-			} else {
-				slide.setAttribute("src", projectsDescriptionData[index].mobileLayout);
-				slide.classList.add("mobile");
-			}
-		});
-	} else {
-		currentLayout.setLayout = "desktop";
-		slides.forEach((slide, index) => {
-			slide.setAttribute("src", projectsDescriptionData[index].desktopLayout);
-			slide.classList.remove("mobile");
-		});
 	}
 });
