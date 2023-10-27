@@ -52,8 +52,6 @@ body + .swiper {
 	font-size: 24px;
 	width: 80%;
 	text-align: justify;
-
-	
 }
 
 @media screen and (max-width: 1550px) {
@@ -103,11 +101,9 @@ body + .swiper {
 
 @media screen and (max-width: 1220px) {
 	.buttons {
-		flex-direction:column;
+		flex-direction: column;
 	}
 }
-
-
 
 .buttons img {
 	width: 50px;
@@ -215,7 +211,8 @@ body + .swiper {
 	display: none;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next,
+.swiper-button-prev {
 	display: none;
 }
 
@@ -250,8 +247,6 @@ body + .swiper {
 }
 
 @media screen and (max-width: 1440px) {
-
-
 	.thumbsSlider .swiper-slide {
 		max-width: 200px;
 	}
@@ -261,21 +256,16 @@ body + .swiper {
 		height: 100%;
 	}
 
-
-
 	.layoutTogglerButtons {
 		display: none;
 	}
 
-	.mobileHeader{ 
+	.mobileHeader {
 		display: none;
 	}
-
-
 }
 
 @media screen and (max-width: 768px) {
-
 	.navigationPanelToggler {
 		display: none;
 	}
@@ -295,10 +285,6 @@ body + .swiper {
 
 	.mobileThumbsSlider {
 		height: 100%;
-	}
-
-	.mobileThumbsSlider .swiper-wrapper {
-		width: 90%;
 	}
 
 	.mainSlider .swiper-slide {
@@ -358,11 +344,10 @@ body + .swiper {
 		z-index: 1;
 		width: 140px;
 		justify-content: space-between;
-
 	}
 
 	.layoutTogglerButtons button {
-		opacity: .5;
+		opacity: 0.5;
 	}
 
 	.layoutTogglerButtons button.active {
@@ -380,8 +365,8 @@ body + .swiper {
 		margin-top: 20px;
 	}
 
-	.mainSlider__navigationControl  .swiper-button-next,
-	.mainSlider__navigationControl  .swiper-button-prev {
+	.mainSlider__navigationControl .swiper-button-next,
+	.mainSlider__navigationControl .swiper-button-prev {
 		margin-top: 0;
 	}
 
@@ -402,10 +387,10 @@ body + .swiper {
 		box-sizing: border-box;
 	}
 
-	.swiper-button-next::after, .swiper-button-prev::after {
+	.swiper-button-next::after,
+	.swiper-button-prev::after {
 		font-size: 80px;
 	}
-
 
 	.descriptionOpener {
 		display: block;
@@ -425,10 +410,15 @@ body + .swiper {
 		bottom: 0;
 		width: 100vw;
 		height: 30%;
-		z-index: 2;
-		border-top:20px solid #e75d05;
+		z-index: 3;
+		border-top: 20px solid #e75d05;
 		transform-origin: center;
-		transform:  scale(1.5) rotate(15deg) translateY(50px);
+		transform: scale(1.5) rotate(15deg) translateY(50px);
+		transition: transform 0.3s linear;
+	}
+
+	.mobileThumbs.hide {
+		transform: scale(1.5) rotate(15deg) translateY(120%);
 	}
 
 	.mobileThumbs .mobileThumbsSlider {
@@ -439,7 +429,7 @@ body + .swiper {
 	.mobileThumbs .swiper-slide {
 		display: flex;
 		align-items: center;
-		transition: transform .3s linear;
+		transition: transform 0.3s linear;
 		opacity: 0.5;
 	}
 
@@ -453,7 +443,7 @@ body + .swiper {
 	}
 
 	.mobileThumbs .swiper-slide-next {
-		transform: translateY(15%)
+		transform: translateY(15%);
 	}
 
 	.mobileThumbs .swiper-slide-after-next {
@@ -461,7 +451,7 @@ body + .swiper {
 	}
 
 	.mobileThumbs .swiper-slide-before-prev {
-		transform: translateY(-30%)
+		transform: translateY(-30%);
 	}
 
 	.mobileThumbs-toggler {
@@ -470,5 +460,31 @@ body + .swiper {
 		left: 50%;
 		bottom: 45%;
 		transform: translateX(-50%) rotate(-15deg);
+	}
+
+	.mobileThumbsOpener {
+		position: absolute;
+		bottom: 5%;
+		width: 75px;
+		z-index: 2;
+		transform: rotate(180deg) translateX(-50%);
+		right: 50%;
+	}
+
+	.description__popup {
+		opacity: 0;
+		visibility: hidden;
+		position: fixed;
+		width: 100%;
+		z-index: 1;
+		height: 100vh;
+		top: 0;
+		background: #1d1d1d;
+		opacity: 0.90;
+	}
+
+	.description__popup.active {
+		opacity: .95;
+		visibility: visible;
 	}
 }

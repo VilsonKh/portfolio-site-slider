@@ -266,3 +266,20 @@ panelToggler.addEventListener("click", () => {
 		panelTogglerImg.setAttribute("src", showPanelImg);
 	}
 });
+
+const mobileThumbsHide = document.querySelector(".mobileThumbs-toggler");
+const mobileThumbsShow = document.querySelector(".mobileThumbsOpener");
+const mobileThumbsPanel = document.querySelector(".mobileThumbs");
+mobileThumbsHide.addEventListener("click", () => {
+	mobileThumbsPanel.classList.add("hide");
+});
+
+mobileThumbsShow.addEventListener("click", () => {
+	mobileThumbsPanel.classList.remove("hide");
+});
+
+const descriptionOpener = document.querySelector(".descriptionOpener");
+const descriptionPopup = document.querySelector(".description__popup");
+descriptionOpener.addEventListener("click", () => {
+	descriptionPopup.classList.toggle("active");
+});
