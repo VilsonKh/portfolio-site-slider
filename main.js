@@ -1,4 +1,5 @@
-const projectDescription = document.querySelector(".description");
+const projectDescription = document.querySelectorAll(".description");
+console.log(projectDescription);
 const githubLink = document.querySelector(".githubLink");
 const mobileLayoutButton = document.querySelector(".layout__mobile");
 const desktopLayoutButton = document.querySelector(".layout__desktop");
@@ -115,7 +116,9 @@ const mainSlider = new Swiper(".mainSlider", {
 	},
 	on: {
 		slideChange: function () {
-			projectDescription.textContent = projectsDescriptionData[this.realIndex].description;
+			projectDescription.forEach((elem) => {
+				elem.textContent = projectsDescriptionData[this.realIndex].description;
+			});
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
 		},
 		slideChangeTransitionStart: function () {
@@ -192,7 +195,6 @@ thumbsSlider.controller.control = mainSlider;
 mobileThumbsSlider.controller.control = mainSlider;
 
 function setBeforePrevAfterNext(swiper) {
-	console.log(swiper);
 	const totalSlidesNumber = document.querySelectorAll(".mainSlider .swiper-slide").length;
 	const currentSlideIndex = swiper.realIndex + 1;
 
@@ -282,4 +284,9 @@ const descriptionOpener = document.querySelector(".descriptionOpener");
 const descriptionPopup = document.querySelector(".description__popup");
 descriptionOpener.addEventListener("click", () => {
 	descriptionPopup.classList.toggle("active");
+});
+
+const slideImages = document.querySelectorAll(".mainSlider img");
+slideImages.forEach((img) => {
+	const panzoom = Panzoom(img);
 });
