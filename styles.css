@@ -149,6 +149,7 @@ body + .swiper {
 	height: 100%;
 	object-fit: cover;
 	object-position: top;
+	transform-origin: 50% 50% 0;
 }
 
 .thumbsSlider .swiper-slide-active {

@@ -1,5 +1,4 @@
 const projectDescription = document.querySelectorAll(".description");
-console.log(projectDescription);
 const githubLink = document.querySelector(".githubLink");
 const mobileLayoutButton = document.querySelector(".layout__mobile");
 const desktopLayoutButton = document.querySelector(".layout__desktop");
@@ -290,4 +289,5 @@ descriptionOpener.addEventListener("click", () => {
 const slideImages = document.querySelectorAll(".mainSlider img");
 slideImages.forEach((img) => {
 	const panzoom = Panzoom(img);
+	console.log(panzoom);
 });
