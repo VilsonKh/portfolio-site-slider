@@ -107,6 +107,7 @@ const projectsDescriptionData = [
 const mainSlider = new Swiper(".mainSlider", {
 	watchSlidesProgress: true,
 	loop: false,
+	allowTouchMove: false,
 	pagination: {
 		// el: ".swiper-pagination",
 		clickable: true,
