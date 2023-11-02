@@ -313,3 +313,5 @@ if (window.screen.width <= 768) {
 touchMovePopup.addEventListener("click", () => {
 	touchMovePopup.classList.remove("active");
 });
+
+localStorage.clear();
