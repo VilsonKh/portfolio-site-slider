@@ -104,7 +104,6 @@ const projectsDescriptionData = [
 ];
 
 const mainSlider = new Swiper(".mainSlider", {
-	initialSlide: 6,
 	watchSlidesProgress: true,
 	loop: false,
 	allowTouchMove: false,
@@ -167,7 +166,7 @@ const mainSlider = new Swiper(".mainSlider", {
 // }
 
 const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
-	initialSlide: 6,
+	initialSlide: 2,
 	slidesPerView: "auto",
 	spaceBetween: 0,
 	centeredSlides: true,
