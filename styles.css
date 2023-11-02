@@ -132,7 +132,6 @@ body + .swiper {
 	justify-content: center;
 	align-items: center;
 	max-width: 300px;
-
 }
 
 @media screen and (max-width: 1550px) {
@@ -151,7 +150,6 @@ body + .swiper {
 	height: 100%;
 	object-position: top; */
 	width: 100%;
-	
 }
 
 .thumbsSlider .swiper-slide-active {
@@ -286,23 +284,8 @@ body + .swiper {
 		display: none;
 	}
 
-	.mobileThumbsSlider {
-	}
-
-	.mobileThumbsSlider .swiper-slide {
-		/* height: 100px;  */
-		/* min-width: 80vw; */
-	}
-
-
 	.mainSlider .swiper-slide {
 		overflow: scroll;
-	}
-
-	.mainSlider img {
-		/* width: auto;
-		height: auto;
-		max-width: max-content; */
 	}
 
 	.mainSlider img.mobile {
@@ -312,7 +295,6 @@ body + .swiper {
 
 	.mobileNavigationToggler {
 		width: 50px;
-
 		z-index: 1;
 	}
 
@@ -410,7 +392,7 @@ body + .swiper {
 		z-index: 3;
 	}
 
-	.mobileThumbs {
+	/* .mobileThumbs {
 		display: block;
 		background: #1d1d1d;
 		position: fixed;
@@ -421,17 +403,57 @@ body + .swiper {
 		border-top: 20px solid #e75d05;
 		transform-origin: center;
 		transform: rotate(15deg) translateY(50px);
-		transition: transform 3s linear;
+		transition: transform 0.2s linear;
 		overflow: hidden;
 	}
 
 	.mobileThumbs.hide {
 		transform: scale(1.5) rotate(15deg) translateY(120%);
+	} */
+
+	.mobileThumbs {
+		display: block;
+		width: 100%;
+		height: 30%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 3;
+		background: #1d1d1d;
+		transition: all .3s linear;
+	}
+
+	.mobileThumbs.hide {
+		transform: translateY(130%);
+	}
+
+	.mobileThumbs::before {
+		display: block;
+		content: "";
+		position: relative;
+		top: -50px;
+		width: 100%;
+		height: 50px;
+		background: #1d1d1d;
+		clip-path: polygon(0 0, 0 100%, 100% 100%);
+	}
+
+	.mobileThumbs::after {
+		display: block;
+		content: "";
+		width: 100vw;
+		height: 20px;
+		background: #e75d03;
+		position: relative;
+		bottom: 95%;
+		z-index: 100;
+		transform: rotate(7deg) skew(7deg);
 	}
 
 	.mobileThumbs .mobileThumbsSlider {
 		/* height: 300px; */
-		transform: rotate(-15deg);
+		/* transform: rotate(-15deg); */
+		top: -30px;
 	}
 
 	.mobileThumbs .swiper-slide {
@@ -440,7 +462,6 @@ body + .swiper {
 		transition: transform 0.3s linear;
 		width: 70%;
 		/* opacity: 0.5; */
-	
 	}
 
 	.mobileThumbs .swiper-slide-active {
@@ -466,10 +487,10 @@ body + .swiper {
 
 	.mobileThumbs-toggler {
 		position: absolute;
-		width: 50px;
+		width: 70px;
 		left: 50%;
-		bottom: 20%;
-		transform: translateX(-50%) rotate(-15deg);
+		bottom: 0;
+		transform: translateX(-50%);
 		z-index: 100;
 	}
 
@@ -491,11 +512,11 @@ body + .swiper {
 		height: 100vh;
 		top: 0;
 		background: #1d1d1d;
-		opacity: 0.90;
+		opacity: 0.9;
 	}
 
 	.description__popup.active {
-		opacity: .95;
+		opacity: 0.95;
 		visibility: visible;
 	}
 
@@ -509,7 +530,7 @@ body + .swiper {
 		width: 100vw;
 		height: 100vh;
 		background: #1d1d1d;
-		opacity: .5;
+		opacity: 0.5;
 		top: 0;
 		left: 0;
 		z-index: 100;
