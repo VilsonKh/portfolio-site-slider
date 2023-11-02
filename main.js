@@ -104,6 +104,7 @@ const projectsDescriptionData = [
 ];
 
 const mainSlider = new Swiper(".mainSlider", {
+	initialSlide: 6,
 	watchSlidesProgress: true,
 	loop: false,
 	allowTouchMove: false,
@@ -120,10 +121,11 @@ const mainSlider = new Swiper(".mainSlider", {
 				elem.textContent = projectsDescriptionData[this.realIndex].description;
 			});
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
+			console.log(this.realIndex);
 		},
-		slideChangeTransitionStart: function () {
-			setBeforePrevAfterNext(thumbsSlider);
-		},
+		// slideChangeTransitionStart: function () {
+		// 	setBeforePrevAfterNext(thumbsSlider);
+		// },
 	},
 });
 
@@ -165,9 +167,18 @@ const mainSlider = new Swiper(".mainSlider", {
 // }
 
 const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
-	slidesPerView: 3,
-	spaceBetween: 40,
+	initialSlide: 6,
+	slidesPerView: "auto",
+	spaceBetween: 0,
 	centeredSlides: true,
+	effect: "coverflow",
+	coverflowEffect: {
+		rotate: 0,
+		stretch: 0,
+		depth: 100,
+		modifier: 2,
+		slideShadows: true,
+	},
 	on: {
 		slideChangeTransitionStart: function () {
 			setBeforePrevAfterNext(this);
@@ -175,23 +186,23 @@ const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
 	},
 });
 
-const thumbsSlider = new Swiper(".thumbsSlider", {
-	direction: "vertical",
-	slidesPerView: 3,
-	centeredSlides: true,
-	loop: false,
-	// navigation: {
-	// 	prevEl: ".swiper-button-prev",
-	// 	nextEl: ".swiper-button-next",
-	// },
-	on: {
-		slideChangeTransitionStart: function () {
-			setBeforePrevAfterNext(this);
-		},
-	},
-});
-(mainSlider.controller.control = thumbsSlider), mobileThumbsSlider;
-thumbsSlider.controller.control = mainSlider;
+// const thumbsSlider = new Swiper(".thumbsSlider", {
+// 	direction: "vertical",
+// 	slidesPerView: 3,
+// 	centeredSlides: true,
+// 	loop: false,
+// 	// navigation: {
+// 	// 	prevEl: ".swiper-button-prev",
+// 	// 	nextEl: ".swiper-button-next",
+// 	// },
+// 	on: {
+// 		slideChangeTransitionStart: function () {
+// 			setBeforePrevAfterNext(this);
+// 		},
+// 	},
+// });
+// (mainSlider.controller.control = thumbsSlider), mobileThumbsSlider;
+// thumbsSlider.controller.control = mainSlider;
 mobileThumbsSlider.controller.control = mainSlider;
 
 function setBeforePrevAfterNext(swiper) {
@@ -288,6 +299,18 @@ descriptionOpener.addEventListener("click", () => {
 
 const slideImages = document.querySelectorAll(".mainSlider img");
 slideImages.forEach((img) => {
-	const panzoom = Panzoom(img);
-	console.log(panzoom);
+	const panzoom = Panzoom(img, { canvas: true, startScale: 6, startX: 100, startY: 70 });
+});
+
+const touchMovePopup = document.querySelector(".touchMoveIconPopup");
+
+if (window.screen.width <= 768) {
+	if (localStorage.getItem("isFirstEnter") === null) {
+		touchMovePopup.classList.add("active");
+		localStorage.setItem("isFirstEnter", false);
+	}
+}
+
+touchMovePopup.addEventListener("click", () => {
+	touchMovePopup.classList.remove("active");
 });
