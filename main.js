@@ -1,5 +1,6 @@
 const projectDescription = document.querySelectorAll(".description");
 const githubLink = document.querySelector(".githubLink");
+const mobileGithubLink = document.querySelector(".description__buttons .githubLink");
 const mobileLayoutButton = document.querySelector(".layout__mobile");
 const desktopLayoutButton = document.querySelector(".layout__desktop");
 
@@ -120,7 +121,7 @@ const mainSlider = new Swiper(".mainSlider", {
 				elem.textContent = projectsDescriptionData[this.realIndex].description;
 			});
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
-			console.log(this.realIndex);
+			mobileGithubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
 		},
 		// slideChangeTransitionStart: function () {
 		// 	setBeforePrevAfterNext(thumbsSlider);
@@ -298,7 +299,8 @@ descriptionOpener.addEventListener("click", () => {
 
 const slideImages = document.querySelectorAll(".mainSlider img");
 slideImages.forEach((img) => {
-	const panzoom = Panzoom(img, { canvas: true, startScale: 6, startX: 100, startY: 70 });
+	//  pinchAndPan - panning during pinch zoom
+	const panzoom = Panzoom(img, { canvas: true, startScale: 6, startX: 100, startY: 70, pinchAndPan: true });
 });
 
 const touchMovePopup = document.querySelector(".touchMoveIconPopup");
