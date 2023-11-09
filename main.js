@@ -104,7 +104,29 @@ const projectsDescriptionData = [
 	},
 ];
 
+const thumbsSlider = new Swiper(".thumbsSlider", {
+	initialSlide: 2,
+	direction: "vertical",
+	slidesPerView: 3,
+	centeredSlides: true,
+	loop: false,
+	// navigation: {
+	// 	prevEl: ".swiper-button-prev",
+	// 	nextEl: ".swiper-button-next",
+	// },
+	on: {
+		slideChangeTransitionStart: function () {
+			setBeforePrevAfterNext(this);
+		},
+	},
+});
+
+if (window.screen.width < 768) {
+	thumbsSlider.disable();
+}
+
 const mainSlider = new Swiper(".mainSlider", {
+	initialSlide: 2,
 	watchSlidesProgress: true,
 	loop: false,
 	allowTouchMove: false,
@@ -123,11 +145,15 @@ const mainSlider = new Swiper(".mainSlider", {
 			githubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
 			mobileGithubLink.setAttribute("href", projectsDescriptionData[this.realIndex].githubLink);
 		},
-		// slideChangeTransitionStart: function () {
-		// 	setBeforePrevAfterNext(thumbsSlider);
-		// },
+		slideChangeTransitionStart: function () {
+			setBeforePrevAfterNext(thumbsSlider);
+		},
 	},
 });
+
+if (window.screen.width > 767) {
+	mainSlider.allowTouchMove = true;
+}
 
 // const mobileMainSlider = new Swiper(".mainSlider", {
 // 	// allowSlideNext: false,
@@ -179,72 +205,54 @@ const mobileThumbsSlider = new Swiper(".mobileThumbsSlider", {
 		modifier: 2,
 		slideShadows: true,
 	},
-	on: {
-		slideChangeTransitionStart: function () {
-			setBeforePrevAfterNext(this);
-		},
-	},
 });
 
-// const thumbsSlider = new Swiper(".thumbsSlider", {
-// 	direction: "vertical",
-// 	slidesPerView: 3,
-// 	centeredSlides: true,
-// 	loop: false,
-// 	// navigation: {
-// 	// 	prevEl: ".swiper-button-prev",
-// 	// 	nextEl: ".swiper-button-next",
-// 	// },
-// 	on: {
-// 		slideChangeTransitionStart: function () {
-// 			setBeforePrevAfterNext(this);
-// 		},
-// 	},
-// });
-// (mainSlider.controller.control = thumbsSlider), mobileThumbsSlider;
-// thumbsSlider.controller.control = mainSlider;
+(mainSlider.controller.control = thumbsSlider), mobileThumbsSlider;
+thumbsSlider.controller.control = mainSlider;
 mobileThumbsSlider.controller.control = mainSlider;
 
 function setBeforePrevAfterNext(swiper) {
-	const totalSlidesNumber = document.querySelectorAll(".mainSlider .swiper-slide").length;
-	const currentSlideIndex = swiper.realIndex + 1;
+	if (window.screen.width > 810) {
+		const totalSlidesNumber = document.querySelectorAll(".mainSlider .swiper-slide").length;
+		const currentSlideIndex = swiper.realIndex + 1;
 
-	if (currentSlideIndex === 1) {
-		let next = swiper.el.querySelector(".swiper-slide-next");
+		if (currentSlideIndex === 1) {
+			let next = swiper.el.querySelector(".swiper-slide-next");
 
-		swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
-			element.classList.remove("swiper-slide-after-next");
-			if (next.nextElementSibling) {
-				next.nextElementSibling.classList.add("swiper-slide-after-next");
-			}
-		});
-	} else if (currentSlideIndex === totalSlidesNumber) {
-		let prev = swiper.el.querySelector(".swiper-slide-prev");
+			swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
+				element.classList.remove("swiper-slide-after-next");
+				if (next.nextElementSibling) {
+					next.nextElementSibling.classList.add("swiper-slide-after-next");
+				}
+			});
+		} else if (currentSlideIndex === totalSlidesNumber) {
+			let prev = swiper.el.querySelector(".swiper-slide-prev");
 
-		swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
-			element.classList.remove("swiper-slide-before-prev");
+			swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
+				element.classList.remove("swiper-slide-before-prev");
+
+				if (prev.previousElementSibling) {
+					prev.previousElementSibling.classList.add("swiper-slide-before-prev");
+				}
+			});
+		} else {
+			let prev = swiper.el.querySelector(".swiper-slide-prev");
+			let next = swiper.el.querySelector(".swiper-slide-next");
+
+			swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
+				element.classList.remove("swiper-slide-before-prev");
+			});
+			swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
+				element.classList.remove("swiper-slide-after-next");
+			});
 
 			if (prev.previousElementSibling) {
 				prev.previousElementSibling.classList.add("swiper-slide-before-prev");
 			}
-		});
-	} else {
-		let prev = swiper.el.querySelector(".swiper-slide-prev");
-		let next = swiper.el.querySelector(".swiper-slide-next");
 
-		swiper.el.querySelectorAll(".swiper-slide-before-prev").forEach((element) => {
-			element.classList.remove("swiper-slide-before-prev");
-		});
-		swiper.el.querySelectorAll(".swiper-slide-after-next").forEach((element) => {
-			element.classList.remove("swiper-slide-after-next");
-		});
-
-		if (prev.previousElementSibling) {
-			prev.previousElementSibling.classList.add("swiper-slide-before-prev");
-		}
-
-		if (next.nextElementSibling) {
-			next.nextElementSibling.classList.add("swiper-slide-after-next");
+			if (next.nextElementSibling) {
+				next.nextElementSibling.classList.add("swiper-slide-after-next");
+			}
 		}
 	}
 }
@@ -298,10 +306,12 @@ descriptionOpener.addEventListener("click", () => {
 });
 
 const slideImages = document.querySelectorAll(".mainSlider img");
-slideImages.forEach((img) => {
-	//  pinchAndPan - panning during pinch zoom
-	const panzoom = Panzoom(img, { canvas: true, startScale: 6, startX: 100, startY: 70, pinchAndPan: true });
-});
+if (window.screen.width < 1439) {
+	slideImages.forEach((img) => {
+		//  pinchAndPan - panning during pinch zoom
+		const panzoom = Panzoom(img, { canvas: true, startScale: 6, startX: 100, startY: 70, pinchAndPan: true });
+	});
+}
 
 const touchMovePopup = document.querySelector(".touchMoveIconPopup");
 
@@ -317,3 +327,16 @@ touchMovePopup.addEventListener("click", () => {
 });
 
 localStorage.clear();
+
+const portrait = window.matchMedia("(orientation: portrait)");
+
+if (screen.orientation.type === "portrait-primary" && window.screen.width > 768) {
+	alert("rotate your device");
+}
+// portrait.addEventListener("change", function (e) {
+// 	if (e.matches) {
+// 		alert("переверни, лох");
+// 	} else {
+// 		alert("нормальная ориентация, лох");
+// 	}
+// });

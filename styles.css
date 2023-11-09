@@ -45,12 +45,13 @@ body + .swiper {
 	background: #e75d03f2;
 	position: relative;
 	left: 100%;
+	z-index: 100;
 }
 
 .description {
 	color: white;
 	font-size: 24px;
-	width: 80%;
+	width: 90%;
 	text-align: justify;
 }
 
@@ -68,7 +69,7 @@ body + .swiper {
 
 .info {
 	width: 100vw;
-	height: 20%;
+	height: 25%;
 	background-color: #1d1d1d;
 	position: absolute;
 	right: 0;
@@ -84,7 +85,7 @@ body + .swiper {
 }
 
 .info__container {
-	width: 50%;
+	width: 55%;
 	margin-left: auto;
 	display: flex;
 	justify-content: space-between;
@@ -93,6 +94,7 @@ body + .swiper {
 
 .buttons {
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
 
@@ -115,7 +117,7 @@ body + .swiper {
 
 .thumbsSlider {
 	position: relative;
-	top: 50%;
+	top: 55%;
 	transform: translateY(-50%) rotate(20deg);
 	width: 60%;
 	margin-right: -50px;
@@ -266,7 +268,7 @@ body + .swiper {
 	}
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 810px) {
 	.navigationPanelToggler {
 		display: none;
 	}
@@ -343,6 +345,10 @@ body + .swiper {
 		width: 50px;
 	}
 
+	.description__buttons img {
+		width: 100%;
+	}
+
 	.layoutTogglerButtons {
 		display: flex;
 		z-index: 1;
@@ -406,25 +412,6 @@ body + .swiper {
 		z-index: 3;
 	}
 
-	/* .mobileThumbs {
-		display: block;
-		background: #1d1d1d;
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		height: 30%;
-		z-index: 3;
-		border-top: 20px solid #e75d05;
-		transform-origin: center;
-		transform: rotate(15deg) translateY(50px);
-		transition: transform 0.2s linear;
-		overflow: hidden;
-	}
-
-	.mobileThumbs.hide {
-		transform: scale(1.5) rotate(15deg) translateY(120%);
-	} */
-
 	.mobileThumbs {
 		display: block;
 		width: 100%;
@@ -435,6 +422,7 @@ body + .swiper {
 		z-index: 3;
 		background: #1d1d1d;
 		transition: all 0.3s linear;
+		padding-top: 30px;
 	}
 
 	.triangle {
@@ -454,7 +442,7 @@ body + .swiper {
 		position: absolute;
 		bottom: 108%;
 		z-index: 100;
-		transform: rotate(7deg) skew(7deg);
+		transform: rotate(calc(7deg)) skew(7deg);
 	}
 
 	.mobileThumbs.hide {
@@ -525,14 +513,14 @@ body + .swiper {
 		position: absolute;
 		width: 70px;
 		left: 50%;
-		bottom: 0;
+		bottom: 5%;
 		transform: translateX(-50%);
 		z-index: 100;
 	}
 
 	.mobileThumbsOpener {
 		position: absolute;
-		bottom: 0;
+		bottom: 5%;
 		width: 70px;
 		z-index: 2;
 		transform: rotate(180deg) translateX(-50%);
